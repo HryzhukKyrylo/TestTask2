@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_graph"
+    app:startDestination="@id/mainSreenFragment">
+
+    <fragment
+        android:id="@+id/mainSreenFragment"
+        android:name="com.natife.testtask2.ui.mainscreen.MainSreenFragment"
+        android:label="fragment_main_sreen"
+        tools:layout="@layout/fragment_main_sreen">
+        <action
+            android:id="@+id/navigateToPreviewScreen"
+            app:destination="@id/previewScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/previewScreenFragment"
+        android:name="com.natife.testtask2.ui.previewscreen.PreviewScreenFragment"
+        android:label="fragment_preview_screen"
+        tools:layout="@layout/fragment_preview_screen" />
+</navigation>
