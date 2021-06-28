@@ -2,7 +2,7 @@ package com.natife.testtask2.model
 
 data class UserResponse(
     val info: Info,
-    val results: List<Result>
+    val results: List<Human>
 )
 data class Info(
     val page: Int,
@@ -11,7 +11,7 @@ data class Info(
     val version: String
 )
 
-data class Result(
+data class Human(
     val cell: String,
     val dob: Dob,
     val email: String,
