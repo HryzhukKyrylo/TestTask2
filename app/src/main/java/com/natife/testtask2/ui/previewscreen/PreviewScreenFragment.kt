@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import com.natife.testtask2.R
 
 class PreviewScreenFragment : Fragment() {
+//    private lateinit var binding: FragmentS
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_preview_screen, container, false)
     }
 

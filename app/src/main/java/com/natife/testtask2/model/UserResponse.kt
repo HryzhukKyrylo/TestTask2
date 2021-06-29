@@ -1,14 +1,7 @@
 package com.natife.testtask2.model
 
 data class UserResponse(
-    val info: Info,
     val results: List<Human>
-)
-data class Info(
-    val page: Int,
-    val results: Int,
-    val seed: String,
-    val version: String
 )
 
 data class Human(
@@ -17,7 +10,6 @@ data class Human(
     val email: String,
     val gender: String,
     val id: Id,
-    val location: Location,
     val login: Login,
     val name: Name,
     val nat: String,
@@ -33,15 +25,7 @@ data class Id(
     val name: String,
     val value: String
 )
-data class Location(
-    val city: String,
-    val coordinates: Coordinates,
-    val country: String,
-    val postcode: Int,
-    val state: String,
-    val street: Street,
-    val timezone: Timezone
-)
+
 data class Login(
     val md5: String,
     val password: String,
@@ -65,17 +49,5 @@ data class Registered(
     val age: Int,
     val date: String
 )
-data class Street(
-    val name: String,
-    val number: Int
-)
-data class Timezone(
-    val description: String,
-    val offset: String
-)
 
-data class Coordinates(
-    val latitude: String,
-    val longitude: String
-)
 
