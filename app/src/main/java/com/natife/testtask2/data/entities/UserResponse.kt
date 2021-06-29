@@ -1,10 +1,10 @@
-package com.natife.testtask2.model
+package com.natife.testtask2.data.entities
+
 
 data class UserResponse(
     val results: List<Human>
 )
-
-data class Human(
+ data class Human(
     val cell: String,
     val dob: Dob,
     val email: String,
@@ -49,5 +49,3 @@ data class Registered(
     val age: Int,
     val date: String
 )
-
-

@@ -5,19 +5,28 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.natife.testtask2.databinding.ListItemBinding
-import com.natife.testtask2.model.Human
+import com.natife.testtask2.data.entities.Human
 
-class MainRecyclerView : RecyclerView.Adapter<MainRecyclerView.MainViewHolder>() {
+class MainRecyclerView (
+    private val listener : OnItemClickListener
+        ): RecyclerView.Adapter<MainRecyclerView.MainViewHolder>() {
     private var listHuman: List<Human> = listOf()
 
-    class MainViewHolder(private val bindingItem: ListItemBinding) :
+    class MainViewHolder(
+        private val listener : OnItemClickListener,
+        private val bindingItem: ListItemBinding) :
         RecyclerView.ViewHolder(bindingItem.root) {
         fun bind(item: Human) {
-            Glide.with(bindingItem.root.context)
-                .load(item.picture.thumbnail)
-                .into(bindingItem.itemImageView)
-            bindingItem.itemNameText.text = item.name.first
-            bindingItem.itemAgeText.text = item.dob.age.toString()
+            with(bindingItem){
+                Glide.with(this.root.context)
+                    .load(item.picture.thumbnail)
+                    .into(bindingItem.itemImageView)
+                itemNameText.text = item.name.first
+                itemAgeText.text = item.dob.age.toString()
+                root.setOnClickListener {
+                    listener.onItemClicked(item.login.uuid)
+                }
+            }
         }
     }
 
@@ -27,7 +36,7 @@ class MainRecyclerView : RecyclerView.Adapter<MainRecyclerView.MainViewHolder>()
             parent,
             false
         )
-        return MainViewHolder(binding)
+        return MainViewHolder(listener,binding)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
@@ -40,4 +49,10 @@ class MainRecyclerView : RecyclerView.Adapter<MainRecyclerView.MainViewHolder>()
         listHuman = list
         notifyDataSetChanged()
     }
+
+
+    interface OnItemClickListener{
+        fun onItemClicked(id : String)
+    }
+
 }
