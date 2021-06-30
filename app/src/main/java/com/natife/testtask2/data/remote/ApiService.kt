@@ -4,13 +4,9 @@ import com.natife.testtask2.data.entities.UserResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface RetrofitService {
+interface ApiService {
     @GET("api/")
-    suspend fun getUsers(
+    suspend fun getHumans(
         @Query("results")results:Int = 10
     ): UserResponse
-//    @POST()
-//    fun updateSomeData(@RequestBody newData: Data): Call<UserResponse>
-
 }
-

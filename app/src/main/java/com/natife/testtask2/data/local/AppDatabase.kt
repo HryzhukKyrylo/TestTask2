@@ -12,7 +12,7 @@ import com.natife.testtask2.data.entities.User
  */
 @Database(entities = [User::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun userDao(): UserDao
+    abstract fun userDao(): HumanDao
 
     companion object {
         @Volatile

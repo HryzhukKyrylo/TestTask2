@@ -1,32 +1,42 @@
 package com.natife.testtask2.ui.mainscreen.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.natife.testtask2.data.entities.UserResponse
-import com.natife.testtask2.data.repository.MainRepository
+import com.natife.testtask2.data.entities.Human
+import com.natife.testtask2.data.entities.User
+import com.natife.testtask2.data.repository.MainLocalRepository
+import com.natife.testtask2.data.repository.MainRemoteRepository
+import com.natife.testtask2.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-/**
- *@author admin
- */
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: MainRepository
+    private val repository: MainRemoteRepository,
+    private val local : MainLocalRepository
 ) : ViewModel() {
-    private val _users = MutableLiveData<UserResponse>()
-    val users : LiveData<UserResponse> = _users
-    val errorMessage = MutableLiveData<String>()
+    private val _responseUsers = MutableLiveData<Resource<List<Human>>>()
+    val responseUsers = _responseUsers
 
-    fun getUsers() = viewModelScope.launch{
+    fun getUsers() = viewModelScope.launch {
         withContext(Dispatchers.IO) {
-            val response = repository.getAllUser()
-            _users.postValue(response)
+            _responseUsers.postValue(Resource.loading(data = null))
+            try {
+                val result = repository.loadUsers()
+                    _responseUsers.postValue(Resource.success(data = result))
+//                local.saveUsers(result)
+            } catch (exception: Exception) {
+                _responseUsers.postValue(
+                    Resource.error(
+                        data = null,
+                        message = exception.message ?: "WTF"
+                    )
+                )
+            }
         }
     }
 }

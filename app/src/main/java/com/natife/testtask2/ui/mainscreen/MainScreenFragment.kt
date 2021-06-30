@@ -11,16 +11,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.natife.testtask2.R
 import com.natife.testtask2.databinding.FragmentMainSreenBinding
-import com.natife.testtask2.data.entities.Human
 import com.natife.testtask2.ui.mainscreen.adapter.MainRecyclerView
 import com.natife.testtask2.ui.mainscreen.viewmodel.MainViewModel
+import com.natife.testtask2.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainScreenFragment : Fragment(), MainRecyclerView.OnItemClickListener {
 
     private lateinit var binding: FragmentMainSreenBinding
-
     private val viewModel: MainViewModel by viewModels()
     private val adapter: MainRecyclerView by lazy { MainRecyclerView(this) }
 
@@ -35,7 +34,7 @@ class MainScreenFragment : Fragment(), MainRecyclerView.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
-        initViewMovel()
+        initViewModel()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,18 +42,23 @@ class MainScreenFragment : Fragment(), MainRecyclerView.OnItemClickListener {
         viewModel.getUsers()
     }
 
-    private fun initViewMovel() {
-        viewModel.users.observe(viewLifecycleOwner) {
-            if (it.results.isNotEmpty())
-                updateListRecycler(it.results)
-        }
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-        }
-    }
+    private fun initViewModel() {
+        viewModel.responseUsers.observe(viewLifecycleOwner) {
+            it?.let {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        if (it.data?.isNullOrEmpty() == true) {
+                            adapter.updateListRecycler(it.data)
+                        }
+                    }
+                    Status.ERROR ->
+                        Toast.makeText(requireContext(), "WTF!!!!!", Toast.LENGTH_SHORT).show()
 
-    private fun updateListRecycler(list: List<Human>) {
-        adapter.updateListRecycler(list)
+                    Status.LOADING ->
+                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun initAdapter() {

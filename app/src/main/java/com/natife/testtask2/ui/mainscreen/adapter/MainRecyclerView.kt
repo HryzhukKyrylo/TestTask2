@@ -19,12 +19,12 @@ class MainRecyclerView (
         fun bind(item: Human) {
             with(bindingItem){
                 Glide.with(this.root.context)
-                    .load(item.picture.thumbnail)
+                    .load(item.picture)
                     .into(bindingItem.itemImageView)
                 itemNameText.text = item.name.first
                 itemAgeText.text = item.dob.age.toString()
                 root.setOnClickListener {
-                    listener.onItemClicked(item.login.uuid)
+                    listener.onItemClicked(item.login.uuid?:"")
                 }
             }
         }

@@ -2,10 +2,9 @@ package com.natife.testtask2.di
 
 import android.content.Context
 import com.natife.testtask2.data.local.AppDatabase
-import com.natife.testtask2.data.local.UserDao
-import com.natife.testtask2.data.remote.RetrofitService
-import com.natife.testtask2.data.repository.MainRepository
-import com.natife.testtask2.data.repository.MainRepositoryImpl
+import com.natife.testtask2.data.local.HumanDao
+import com.natife.testtask2.data.remote.ApiService
+import com.natife.testtask2.data.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,22 +47,29 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofitService(retrofit: Retrofit): RetrofitService = retrofit.create(
-        RetrofitService::class.java
+    fun provideRetrofitService(retrofit: Retrofit): ApiService = retrofit.create(
+        ApiService::class.java
     )
 
     @Provides
     @Singleton
-    fun provideGiphyRepository(service: RetrofitService): MainRepository =
-        MainRepositoryImpl(service)
+    fun provideRepositoryImpl(service: ApiService):MainRepository = MainRemoteRepository(service)
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext appContext: Context) = AppDatabase(appContext)
+    fun provideDatabase(@ApplicationContext appContext: Context) =
+        AppDatabase.getDatabase(appContext)
 
     @Provides
     @Singleton
-    fun provideUserDao( db: AppDatabase) = db.userDao()
-    //https://itnext.io/android-architecture-hilt-mvvm-kotlin-coroutines-live-data-room-and-retrofit-ft-8b746cab4a06
+    fun provideUserDao(db: AppDatabase) = db.userDao()
+
+    @Provides
+    @Singleton
+    fun provideRepository( local: HumanDao) = MainLocalRepository(local)
+
+
+    // logic from this project
+// https://itnext.io/android-architecture-hilt-mvvm-kotlin-coroutines-live-data-room-and-retrofit-ft-8b746cab4a06
 
 }

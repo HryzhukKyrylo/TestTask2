@@ -9,18 +9,14 @@ import com.natife.testtask2.data.entities.User
  *@author admin
  */
 @Dao
-interface UserDao {
-    @Query("SELECT * FROM humans") fun getAll(): List<User>
-    @Insert
-    fun insertAll(vararg users: User)
-    @Delete
-    fun delete(user: User)
+interface HumanDao {
 
-    @Query("SELECT * FROM humans")
-    fun getAllUsers() : LiveData<List<User>>
+//    @Query("SELECT * FROM humans LIMIT 20 OFFSET :offset")
+    @Query("SELECT * FROM humans ")
+    fun getAllHumans() : List<User>
 
-    @Query("SELECT * FROM humans WHERE first_name = :name")
-    fun getUser(name: String): LiveData<User>
+    @Query("SELECT * FROM humans WHERE uuid = :uuid")
+    fun getHuman(uuid: String): User
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(user: List<User>)
