@@ -16,8 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: MainRemoteRepository,
-    private val local : MainLocalRepository
+    private val repository: MainRemoteRepository
 ) : ViewModel() {
     private val _responseUsers = MutableLiveData<Resource<List<Human>>>()
     val responseUsers = _responseUsers
@@ -28,12 +27,11 @@ class MainViewModel @Inject constructor(
             try {
                 val result = repository.loadUsers()
                     _responseUsers.postValue(Resource.success(data = result))
-//                local.saveUsers(result)
             } catch (exception: Exception) {
                 _responseUsers.postValue(
                     Resource.error(
                         data = null,
-                        message = exception.message ?: "WTF"
+                        message = exception.message ?: "WTF Error"
                     )
                 )
             }

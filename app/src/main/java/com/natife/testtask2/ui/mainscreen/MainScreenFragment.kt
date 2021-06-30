@@ -44,15 +44,13 @@ class MainScreenFragment : Fragment(), MainRecyclerView.OnItemClickListener {
 
     private fun initViewModel() {
         viewModel.responseUsers.observe(viewLifecycleOwner) {
-            it?.let {
-                when (it.status) {
+            it?.let { resource ->
+                when (resource.status) {
                     Status.SUCCESS -> {
-                        if (it.data?.isNullOrEmpty() == true) {
-                            adapter.updateListRecycler(it.data)
-                        }
+                       resource.data.let { list -> list?.let { adapter.updateListRecycler(it)  } }
                     }
                     Status.ERROR ->
-                        Toast.makeText(requireContext(), "WTF!!!!!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "WTF!!!!!", Toast.LENGTH_LONG).show()
 
                     Status.LOADING ->
                         Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()

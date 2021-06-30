@@ -19,7 +19,7 @@ class MainRecyclerView (
         fun bind(item: Human) {
             with(bindingItem){
                 Glide.with(this.root.context)
-                    .load(item.picture)
+                    .load(item.picture.medium)
                     .into(bindingItem.itemImageView)
                 itemNameText.text = item.name.first
                 itemAgeText.text = item.dob.age.toString()
