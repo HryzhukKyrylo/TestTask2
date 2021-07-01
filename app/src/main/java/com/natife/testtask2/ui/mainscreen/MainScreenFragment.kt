@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.natife.testtask2.R
 import com.natife.testtask2.databinding.FragmentMainSreenBinding
 import com.natife.testtask2.ui.mainscreen.adapter.MainRecyclerView
 import com.natife.testtask2.ui.mainscreen.viewmodel.MainViewModel
+import com.natife.testtask2.utils.Const
 import com.natife.testtask2.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,8 +68,9 @@ class MainScreenFragment : Fragment(), MainRecyclerView.OnItemClickListener {
 
     }
 
-    override fun onItemClicked(id: String) {
-        findNavController().navigate(R.id.navigateToPreviewScreen)
+    override fun onItemClicked(uuid: String) {
+        val bundle = bundleOf(Const.ARG_USER to uuid)
+        findNavController().navigate(R.id.navigateToPreviewScreen, bundle)
     }
 
     override fun onDestroyView() {

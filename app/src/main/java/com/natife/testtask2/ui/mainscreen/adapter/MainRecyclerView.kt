@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.natife.testtask2.data.entities.Human
 import com.natife.testtask2.databinding.ListItemBinding
 import com.natife.testtask2.data.entities.User
 

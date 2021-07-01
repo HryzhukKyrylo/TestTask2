@@ -15,8 +15,8 @@ interface HumanDao {
     @Query("SELECT * FROM humans ")
     fun getAllHumans() : List<User>
 
-    @Query("SELECT * FROM humans WHERE id = :id")
-    fun getHuman(id: Int): User
+    @Query("SELECT * FROM humans WHERE uuid = :uuid")
+    fun getHuman(uuid: String): User
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(user: List<User>)

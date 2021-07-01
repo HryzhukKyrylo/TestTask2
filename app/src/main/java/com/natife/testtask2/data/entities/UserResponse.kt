@@ -59,7 +59,9 @@ fun Human.toUser(): User {
         title = name.title,
         age = dob.age,
         uuid = login.uuid,
-//        id = idKey,
         picture = picture.medium,
+        phone = phone,
+        email = email
+
     )
 }

@@ -14,6 +14,9 @@ data class User(
     @ColumnInfo(name = "last_name") val lastName: String?,
     @ColumnInfo(name = "title") val title: String?,
     @ColumnInfo(name = "age") val age: Int?,
+    @ColumnInfo(name = "phone") val phone: String?,
+    @ColumnInfo(name = "email") val email: String?,
+
     @ColumnInfo(name = "uuid") val uuid: String?,
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "picture") val picture: String?

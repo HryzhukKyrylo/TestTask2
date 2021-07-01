@@ -42,6 +42,9 @@ class MainRepository @Inject constructor(
             loadHumansCached()
         }
     }
+    fun fetchUser(id: String):User{
+        return local.getHuman(id)
+    }
 
     private fun loadHumansCached(): Resource<UserResponse> =
         local.getAllHumans()

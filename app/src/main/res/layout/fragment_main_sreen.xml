@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.mainscreen.MainScreenFragment">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainRecyclerView"
         android:layout_width="match_parent"
