@@ -1,16 +1,11 @@
 package com.natife.testtask2.data.entities
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-
 data class UserResponse(
     var results: List<Human>,
-    var resultsUser: MutableList<User>
+    var resultsUser: List<User>
 )
-@Entity(tableName = "humans")
+
  data class Human(
-    @PrimaryKey(autoGenerate = true)
     val idKey: Int,
     val cell: String,
     val dob: Dob,
@@ -64,7 +59,7 @@ fun Human.toUser(): User {
         title = name.title,
         age = dob.age,
         uuid = login.uuid,
-        id = idKey,
+//        id = idKey,
         picture = picture.medium,
     )
 }

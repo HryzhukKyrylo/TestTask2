@@ -1,6 +1,12 @@
 package com.natife.testtask2.utils
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
+    enum class Status {
+        SUCCESS,
+        ERROR,
+        LOADING
+    }
+
     companion object {
         fun <T> success(data: T): Resource<T> =
             Resource(status = Status.SUCCESS, data = data, message = null)
@@ -11,9 +17,4 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
         fun <T> loading(data: T?): Resource<T> =
             Resource(status = Status.LOADING, data = data, message = null)
     }
-}
-enum class Status {
-    SUCCESS,
-    ERROR,
-    LOADING
 }

@@ -15,6 +15,6 @@ data class User(
     @ColumnInfo(name = "title") val title: String?,
     @ColumnInfo(name = "age") val age: Int?,
     @ColumnInfo(name = "uuid") val uuid: String?,
-    @PrimaryKey(autoGenerate = true) val id: Int?,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "picture") val picture: String?
 )

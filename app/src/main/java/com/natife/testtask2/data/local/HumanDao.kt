@@ -1,8 +1,9 @@
 package com.natife.testtask2.data.local
 
-import androidx.lifecycle.LiveData
-import androidx.room.*
-import com.natife.testtask2.data.entities.Human
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.natife.testtask2.data.entities.User
 
 /**
@@ -11,17 +12,19 @@ import com.natife.testtask2.data.entities.User
 @Dao
 interface HumanDao {
 
-//    @Query("SELECT * FROM humans LIMIT 20 OFFSET :offset")
     @Query("SELECT * FROM humans ")
     fun getAllHumans() : List<User>
 
-    @Query("SELECT * FROM humans WHERE uuid = :uuid")
-    fun getHuman(uuid: String): User
+    @Query("SELECT * FROM humans WHERE id = :id")
+    fun getHuman(id: Int): User
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(user: List<User>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(user: User)
+    suspend fun insertUser(user: User)
+
+    @Query("DELETE FROM humans")
+    suspend fun deleteAll()
 
 }

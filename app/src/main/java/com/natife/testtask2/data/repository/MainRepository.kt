@@ -1,63 +1,52 @@
 package com.natife.testtask2.data.repository
 
-import com.natife.testtask2.data.entities.Human
+import android.util.Log
 import com.natife.testtask2.data.entities.User
-import java.lang.Exception
+import com.natife.testtask2.data.entities.UserResponse
+import com.natife.testtask2.data.entities.toUser
+import com.natife.testtask2.data.local.HumanDao
+import com.natife.testtask2.data.remote.RemoteRepository
+import com.natife.testtask2.utils.Resource
+import javax.inject.Inject
 
 /**
  *@author admin
  */
-interface MainRepository {
-    suspend fun saveUsers(list: List<User>)
-    suspend fun loadUsers(): List<Human>
-}
+class MainRepository @Inject constructor(
+    private val remote: RemoteRepository,
+    private val local: HumanDao
+) {
+    private var firstRequest = true
+    suspend fun loadHumans(): Resource<UserResponse> {
+        val result = remote.loadHumans()
+        return if (result.status == Resource.Status.SUCCESS) {
+            if (firstRequest) {
+                firstRequest = false
+                local.deleteAll()
+//                val listUser = arrayListOf<User>()
+//                result.data?.results?.map {
+//                    listUser.add(it.toUser())
+//                }
+//                listUser.map { local.insertUser(it) }
+//
+//                Resource.success(result.data!!.apply { resultsUser = listUser })
+            }
+//            loadHumansCached()
+            val listUser = arrayListOf<User>()
+            result.data?.results?.map {
+                listUser.add(it.toUser())
+            }
+            local.insertAll(listUser)
+            Resource.success(result.data!!.apply { resultsUser = listUser })
+        } else {
+            loadHumansCached()
+        }
+    }
 
-//class DatabaseRepo : MainRepository {
-//
-//    override suspend fun saveUsers() {
-//
-//    }
-//
-//    override suspend fun loadUsers(): List<User> {
-//        return listOf()
-//    }
-//}
-//
-//class NetworkRepo : MainRepository {
-//
-//    override suspend fun saveUsers() {
-//        throw UnsupportedOperationException("cannot save users to remote")
-//    }
-//
-//    override suspend fun loadUsers(): List<User> {
-//        return listOf()
-//    }
-//
-//}
-//
-//class UserRepoImpl(
-//    private val databaseRepo: MainRepository,
-//    private val networkRepo: MainRepository
-//) : MainRepository {
-//
-//    private var firstLoad = true
-//    override suspend fun saveUsers() {
-//        databaseRepo.saveUsers()
-//    }
-//
-//    override suspend fun loadUsers(): List<User> {
-//        return try {
-//            val users = networkRepo.loadUsers()
-//            if (firstLoad) {
-//                firstLoad = false
-//                databaseRepo.clear()
-//            }
-//            databaseRepo.saveUsers()
-//            users
-//
-//        } catch (e: Exception) {
-//            databaseRepo.loadUsers()
-//        }
-//    }
-//
-//}
+    private fun loadHumansCached(): Resource<UserResponse> =
+        local.getAllHumans()
+            .let {
+                Log.i("LocalLoading", "loadHumansCached: loading from database")
+                Resource.success(UserResponse(resultsUser = it, results = listOf()))
+            }
+}

@@ -13,22 +13,22 @@ import com.natife.testtask2.R
 import com.natife.testtask2.databinding.FragmentMainSreenBinding
 import com.natife.testtask2.ui.mainscreen.adapter.MainRecyclerView
 import com.natife.testtask2.ui.mainscreen.viewmodel.MainViewModel
-import com.natife.testtask2.utils.Status
+import com.natife.testtask2.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainScreenFragment : Fragment(), MainRecyclerView.OnItemClickListener {
 
-    private lateinit var binding: FragmentMainSreenBinding
+    private var binding: FragmentMainSreenBinding? = null
     private val viewModel: MainViewModel by viewModels()
-    private val adapter: MainRecyclerView by lazy { MainRecyclerView(this) }
+    private var adapter: MainRecyclerView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentMainSreenBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,13 +46,13 @@ class MainScreenFragment : Fragment(), MainRecyclerView.OnItemClickListener {
         viewModel.responseUsers.observe(viewLifecycleOwner) {
             it?.let { resource ->
                 when (resource.status) {
-                    Status.SUCCESS -> {
-                       resource.data.let { list -> list?.let { adapter.updateListRecycler(it)  } }
+                    Resource.Status.SUCCESS -> {
+                        resource.data.let { list -> list?.let { adapter?.updateListRecycler(it.resultsUser) } }
                     }
-                    Status.ERROR ->
-                        Toast.makeText(requireContext(), "WTF!!!!!", Toast.LENGTH_LONG).show()
+                    Resource.Status.ERROR ->
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
 
-                    Status.LOADING ->
+                    Resource.Status.LOADING ->
                         Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -60,12 +60,20 @@ class MainScreenFragment : Fragment(), MainRecyclerView.OnItemClickListener {
     }
 
     private fun initAdapter() {
-        binding.mainRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.mainRecyclerView.adapter = adapter
+        adapter = MainRecyclerView(this)
+        binding?.mainRecyclerView?.layoutManager = LinearLayoutManager(requireContext())
+        binding?.mainRecyclerView?.adapter = adapter
 
     }
 
     override fun onItemClicked(id: String) {
         findNavController().navigate(R.id.navigateToPreviewScreen)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+        adapter = null
+
     }
 }

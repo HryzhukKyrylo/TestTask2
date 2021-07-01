@@ -2,9 +2,7 @@ package com.natife.testtask2.di
 
 import android.content.Context
 import com.natife.testtask2.data.local.AppDatabase
-import com.natife.testtask2.data.local.HumanDao
 import com.natife.testtask2.data.remote.ApiService
-import com.natife.testtask2.data.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,7 +34,8 @@ class NetworkModule {
         Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://randomuser.me/")
-            .addConverterFactory(GsonConverterFactory.create()).build()
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
     @Singleton
     @Provides
@@ -53,10 +52,6 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRepositoryImpl(service: ApiService):MainRepository = MainRemoteRepository(service)
-
-    @Provides
-    @Singleton
     fun provideDatabase(@ApplicationContext appContext: Context) =
         AppDatabase.getDatabase(appContext)
 
@@ -64,9 +59,6 @@ class NetworkModule {
     @Singleton
     fun provideUserDao(db: AppDatabase) = db.userDao()
 
-    @Provides
-    @Singleton
-    fun provideLocalRepository( local: HumanDao) = MainLocalRepository(local)
 
 
     // logic from this project
