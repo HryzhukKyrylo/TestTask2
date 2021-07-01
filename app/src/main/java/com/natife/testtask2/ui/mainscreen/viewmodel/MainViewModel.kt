@@ -21,19 +21,21 @@ class MainViewModel @Inject constructor(
     private val _responseUsers = MutableLiveData<Resource<List<Human>>>()
     val responseUsers = _responseUsers
 
-    fun getUsers() = viewModelScope.launch {
-        withContext(Dispatchers.IO) {
-            _responseUsers.postValue(Resource.loading(data = null))
-            try {
-                val result = repository.loadUsers()
+    fun getUsers() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                _responseUsers.postValue(Resource.loading(data = null))
+                try {
+                    val result = repository.loadUsers()
                     _responseUsers.postValue(Resource.success(data = result))
-            } catch (exception: Exception) {
-                _responseUsers.postValue(
-                    Resource.error(
-                        data = null,
-                        message = exception.message ?: "WTF Error"
+                } catch (exception: Exception) {
+                    _responseUsers.postValue(
+                        Resource.error(
+                            data = null,
+                            message = exception.message ?: "WTF Error"
+                        )
                     )
-                )
+                }
             }
         }
     }

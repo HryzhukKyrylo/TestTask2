@@ -55,18 +55,18 @@ class NetworkModule {
     @Singleton
     fun provideRepositoryImpl(service: ApiService):MainRepository = MainRemoteRepository(service)
 
-//    @Provides
-//    @Singleton
-//    fun provideDatabase(@ApplicationContext appContext: Context) =
-//        AppDatabase.getDatabase(appContext)
+    @Provides
+    @Singleton
+    fun provideDatabase(@ApplicationContext appContext: Context) =
+        AppDatabase.getDatabase(appContext)
 
-//    @Provides
-//    @Singleton
-//    fun provideUserDao(db: AppDatabase) = db.userDao()
-//
-//    @Provides
-//    @Singleton
-//    fun provideRepository( local: HumanDao) = MainLocalRepository(local)
+    @Provides
+    @Singleton
+    fun provideUserDao(db: AppDatabase) = db.userDao()
+
+    @Provides
+    @Singleton
+    fun provideLocalRepository( local: HumanDao) = MainLocalRepository(local)
 
 
     // logic from this project
