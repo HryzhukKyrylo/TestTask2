@@ -9,9 +9,6 @@ import com.natife.testtask2.data.remote.RemoteRepository
 import com.natife.testtask2.utils.Resource
 import javax.inject.Inject
 
-/**
- *@author admin
- */
 class MainRepository @Inject constructor(
     private val remote: RemoteRepository,
     private val local: HumanDao
@@ -23,15 +20,7 @@ class MainRepository @Inject constructor(
             if (firstRequest) {
                 firstRequest = false
                 local.deleteAll()
-//                val listUser = arrayListOf<User>()
-//                result.data?.results?.map {
-//                    listUser.add(it.toUser())
-//                }
-//                listUser.map { local.insertUser(it) }
-//
-//                Resource.success(result.data!!.apply { resultsUser = listUser })
             }
-//            loadHumansCached()
             val listUser = arrayListOf<User>()
             result.data?.results?.map {
                 listUser.add(it.toUser())
@@ -42,7 +31,8 @@ class MainRepository @Inject constructor(
             loadHumansCached()
         }
     }
-    fun fetchUser(id: String):User{
+
+    fun fetchUser(id: String): User {
         return local.getHuman(id)
     }
 

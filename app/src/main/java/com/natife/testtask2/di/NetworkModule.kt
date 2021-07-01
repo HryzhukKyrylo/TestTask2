@@ -1,12 +1,9 @@
 package com.natife.testtask2.di
 
-import android.content.Context
-import com.natife.testtask2.data.local.AppDatabase
 import com.natife.testtask2.data.remote.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,9 +11,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-/**
- *@author admin
- */
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
@@ -49,19 +43,4 @@ class NetworkModule {
     fun provideRetrofitService(retrofit: Retrofit): ApiService = retrofit.create(
         ApiService::class.java
     )
-
-    @Provides
-    @Singleton
-    fun provideDatabase(@ApplicationContext appContext: Context) =
-        AppDatabase.getDatabase(appContext)
-
-    @Provides
-    @Singleton
-    fun provideUserDao(db: AppDatabase) = db.userDao()
-
-
-
-    // logic from this project
-// https://itnext.io/android-architecture-hilt-mvvm-kotlin-coroutines-live-data-room-and-retrofit-ft-8b746cab4a06
-
 }

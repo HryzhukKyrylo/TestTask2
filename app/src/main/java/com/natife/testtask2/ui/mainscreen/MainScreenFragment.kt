@@ -51,11 +51,12 @@ class MainScreenFragment : Fragment(), MainRecyclerView.OnItemClickListener {
                     Resource.Status.SUCCESS -> {
                         resource.data.let { list -> list?.let { adapter?.updateListRecycler(it.resultsUser) } }
                     }
-                    Resource.Status.ERROR ->
+                    Resource.Status.ERROR -> {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-
-                    Resource.Status.LOADING ->
+                    }
+                    Resource.Status.LOADING -> {
                         Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -65,7 +66,6 @@ class MainScreenFragment : Fragment(), MainRecyclerView.OnItemClickListener {
         adapter = MainRecyclerView(this)
         binding?.mainRecyclerView?.layoutManager = LinearLayoutManager(requireContext())
         binding?.mainRecyclerView?.adapter = adapter
-
     }
 
     override fun onItemClicked(uuid: String) {
@@ -77,6 +77,5 @@ class MainScreenFragment : Fragment(), MainRecyclerView.OnItemClickListener {
         super.onDestroyView()
         binding = null
         adapter = null
-
     }
 }

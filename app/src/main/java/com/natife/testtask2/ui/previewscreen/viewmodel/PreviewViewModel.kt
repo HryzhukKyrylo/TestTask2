@@ -26,5 +26,4 @@ class PreviewViewModel @Inject constructor(
             }
         }
     }
-
 }

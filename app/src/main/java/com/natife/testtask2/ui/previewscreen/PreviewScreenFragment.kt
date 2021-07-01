@@ -61,15 +61,12 @@ class PreviewScreenFragment : Fragment() {
                 ageText.text = user.age.toString()
                 phoneText.text = user.phone
                 emailText.text = user.email
-
             }
         }
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
-
 }

@@ -5,7 +5,7 @@ data class UserResponse(
     var resultsUser: List<User>
 )
 
- data class Human(
+data class Human(
     val idKey: Int,
     val cell: String,
     val dob: Dob,
@@ -19,10 +19,12 @@ data class UserResponse(
     val picture: Picture,
     val registered: Registered
 )
+
 data class Dob(
     val age: Int,
     val date: String
 )
+
 data class Id(
     val name: String,
     val value: String
@@ -36,7 +38,9 @@ data class Login(
     val sha256: String,
     val username: String,
     val uuid: String
-)data class Name(
+)
+
+data class Name(
     val first: String,
     val last: String,
     val title: String
@@ -47,6 +51,7 @@ data class Picture(
     val medium: String,
     val thumbnail: String
 )
+
 data class Registered(
     val age: Int,
     val date: String
@@ -62,6 +67,5 @@ fun Human.toUser(): User {
         picture = picture.medium,
         phone = phone,
         email = email
-
     )
 }

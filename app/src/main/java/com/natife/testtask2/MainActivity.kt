@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupUpButton() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
         setupActionBarWithNavController(navController)
     }

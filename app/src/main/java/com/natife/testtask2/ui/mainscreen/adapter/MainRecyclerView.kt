@@ -7,24 +7,25 @@ import com.bumptech.glide.Glide
 import com.natife.testtask2.databinding.ListItemBinding
 import com.natife.testtask2.data.entities.User
 
-class MainRecyclerView (
-    private val listener : OnItemClickListener
-        ): RecyclerView.Adapter<MainRecyclerView.MainViewHolder>() {
+class MainRecyclerView(
+    private val listener: OnItemClickListener
+) : RecyclerView.Adapter<MainRecyclerView.MainViewHolder>() {
     private var listHuman: List<User> = listOf()
 
     class MainViewHolder(
-        private val listener : OnItemClickListener,
-        private val bindingItem: ListItemBinding) :
+        private val listener: OnItemClickListener,
+        private val bindingItem: ListItemBinding
+    ) :
         RecyclerView.ViewHolder(bindingItem.root) {
         fun bind(item: User) {
-            with(bindingItem){
+            with(bindingItem) {
                 Glide.with(this.root.context)
                     .load(item.picture)
                     .into(bindingItem.itemImageView)
                 itemNameText.text = item.firstName
                 itemAgeText.text = item.age.toString()
                 root.setOnClickListener {
-                    listener.onItemClicked(item.uuid?:"")
+                    listener.onItemClicked(item.uuid ?: "")
                 }
             }
         }
@@ -36,7 +37,7 @@ class MainRecyclerView (
             parent,
             false
         )
-        return MainViewHolder(listener,binding)
+        return MainViewHolder(listener, binding)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
@@ -50,9 +51,7 @@ class MainRecyclerView (
         notifyDataSetChanged()
     }
 
-
-    interface OnItemClickListener{
-        fun onItemClicked(id : String)
+    interface OnItemClickListener {
+        fun onItemClicked(id: String)
     }
-
 }

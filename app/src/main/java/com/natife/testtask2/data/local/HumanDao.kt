@@ -6,9 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.natife.testtask2.data.entities.User
 
-/**
- *@author admin
- */
 @Dao
 interface HumanDao {
 
