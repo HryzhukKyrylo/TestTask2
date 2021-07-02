@@ -1,9 +1,7 @@
 package com.natife.testtask2.ui.mainscreen.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.natife.testtask2.data.entities.User
 import com.natife.testtask2.data.entities.UserResponse
 import com.natife.testtask2.data.repository.MainRepository
 import com.natife.testtask2.utils.Resource
@@ -20,30 +18,20 @@ class MainViewModel @Inject constructor(
     private val _responseUsers = MutableLiveData<Resource<UserResponse>>()
     val responseUsers: LiveData<Resource<UserResponse>> = _responseUsers
 
-    fun getUsers() {
-        loadUsers(false)
-    }
+    fun loadUsers() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _responseUsers.postValue(Resource.loading(data = null))
+            try {
+                val result = repository.loadHumans()
+                _responseUsers.postValue(result)
 
-    fun loadMoreUsers() {
-        loadUsers(true)
-    }
-
-    fun loadUsers(loadNext: Boolean) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                _responseUsers.postValue(Resource.loading(data = null))
-                try {
-                    val result = repository.loadHumans(loadNext)
-                    _responseUsers.postValue(result)
-
-                } catch (exception: Exception) {
-                    _responseUsers.postValue(
-                        Resource.error(
-                            data = null,
-                            message = exception.message ?: "WTF Error"
-                        )
+            } catch (exception: Exception) {
+                _responseUsers.postValue(
+                    Resource.error(
+                        data = null,
+                        message = exception.message ?: "WTF Error"
                     )
-                }
+                )
             }
         }
     }

@@ -2,18 +2,18 @@ package com.natife.testtask2.ui.mainscreen.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.natife.testtask2.databinding.ListItemBinding
 import com.natife.testtask2.data.entities.User
 
 class MainRecyclerView(
-    private val listener: OnItemClickListener
-) : RecyclerView.Adapter<MainRecyclerView.MainViewHolder>() {
-    private var listHuman: List<User> = listOf()
+    val itemClick: (String) -> Unit,
+    val pagination: () -> Unit
+) : ListAdapter<User, MainRecyclerView.MainViewHolder>(ItemDiff()) {
 
-    class MainViewHolder(
-        private val listener: OnItemClickListener,
+    inner class MainViewHolder(
         private val bindingItem: ListItemBinding
     ) :
         RecyclerView.ViewHolder(bindingItem.root) {
@@ -24,8 +24,9 @@ class MainRecyclerView(
                     .into(bindingItem.itemImageView)
                 itemNameText.text = item.firstName
                 itemAgeText.text = item.age.toString()
+
                 root.setOnClickListener {
-                    listener.onItemClicked(item.uuid ?: "")
+                    itemClick(item.uuid ?: "")
                 }
             }
         }
@@ -37,21 +38,13 @@ class MainRecyclerView(
             parent,
             false
         )
-        return MainViewHolder(listener, binding)
+        return MainViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bind(listHuman[position])
-    }
-
-    override fun getItemCount(): Int = listHuman.size
-
-    fun updateListRecycler(list: List<User>) {
-        listHuman = list
-        notifyDataSetChanged()
-    }
-
-    interface OnItemClickListener {
-        fun onItemClicked(id: String)
+        holder.bind(getItem(position))
+        if (position == itemCount - 2) {
+            pagination()
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.natife.testtask2.data.repository
 
-import android.util.Log
 import com.natife.testtask2.data.entities.User
 import com.natife.testtask2.data.entities.UserResponse
 import com.natife.testtask2.data.entities.toUser
@@ -15,7 +14,7 @@ class MainRepository @Inject constructor(
 ) {
     private var firstRequest = true
 
-    suspend fun loadHumans(loadNext: Boolean): Resource<UserResponse> {
+    suspend fun loadHumans(): Resource<UserResponse> {
         val result = remote.loadHumans()
         return if (result.status == Resource.Status.SUCCESS) {
             if (firstRequest) {
@@ -27,15 +26,8 @@ class MainRepository @Inject constructor(
                 listUser.add(it.toUser())
             }
 
-            if(loadNext){
-                val newList = local.getAllHumans()+listUser
-                local.insertAll(newList)
-                Resource.success(result.data!!.apply { resultsUser = newList })
-            }else{
-                local.insertAll(listUser)
-                Resource.success(result.data!!.apply { resultsUser = listUser })
-            }
-
+            local.insertAll(listUser)
+            Resource.success(result.data!!.apply { resultsUser = local.getAllHumans() })
         } else {
             loadHumansCached()
         }
@@ -48,7 +40,6 @@ class MainRepository @Inject constructor(
     private fun loadHumansCached(): Resource<UserResponse> =
         local.getAllHumans()
             .let {
-                Log.i("LocalLoading", "loadHumansCached: loading from database")
                 Resource.success(UserResponse(resultsUser = it, results = listOf()))
             }
 }
