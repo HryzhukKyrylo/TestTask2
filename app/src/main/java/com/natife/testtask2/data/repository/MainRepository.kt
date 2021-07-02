@@ -28,8 +28,9 @@ class MainRepository @Inject constructor(
             }
 
             if(loadNext){
-                local.insertAll(local.getAllHumans()+listUser)
-                Resource.success(result.data!!.apply { resultsUser = local.getAllHumans()+listUser })
+                val newList = local.getAllHumans()+listUser
+                local.insertAll(newList)
+                Resource.success(result.data!!.apply { resultsUser = newList })
             }else{
                 local.insertAll(listUser)
                 Resource.success(result.data!!.apply { resultsUser = listUser })
