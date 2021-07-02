@@ -15,18 +15,15 @@ class RemoteRepository @Inject constructor(private val service: ApiService) {
     }
 
     private suspend fun <T> getResponse(
-        request: suspend () -> Response<T>,
+        request: suspend () -> T,
         defaultErrorMessage: String
     ): Resource<T> {
         return try {
             val result = request.invoke()
-            if (result.isSuccessful) {
-                return Resource.success(result.body()!!)
-            } else {
-                Resource.error(data = null, message = defaultErrorMessage)
-            }
+                return Resource.success(result)
         } catch (e: Throwable) {
-            Resource.error(data = null, message = "Unknown Error")
+            e.printStackTrace()
+            Resource.error(data = null, message = defaultErrorMessage)
         }
     }
 }

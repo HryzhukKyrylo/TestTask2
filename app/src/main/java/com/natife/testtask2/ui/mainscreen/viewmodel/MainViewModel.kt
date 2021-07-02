@@ -1,5 +1,6 @@
 package com.natife.testtask2.ui.mainscreen.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,15 +18,24 @@ class MainViewModel @Inject constructor(
     private val repository: MainRepository
 ) : ViewModel() {
     private val _responseUsers = MutableLiveData<Resource<UserResponse>>()
-    val responseUsers = _responseUsers
+    val responseUsers: LiveData<Resource<UserResponse>> = _responseUsers
 
     fun getUsers() {
+        loadUsers(false)
+    }
+
+    fun loadMoreUsers() {
+        loadUsers(true)
+    }
+
+    fun loadUsers(loadNext: Boolean) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _responseUsers.postValue(Resource.loading(data = null))
                 try {
-                    val result = repository.loadHumans()
-                        _responseUsers.postValue(result)
+                    val result = repository.loadHumans(loadNext)
+                    _responseUsers.postValue(result)
+
                 } catch (exception: Exception) {
                     _responseUsers.postValue(
                         Resource.error(

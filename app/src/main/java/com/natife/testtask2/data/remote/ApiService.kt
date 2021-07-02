@@ -9,5 +9,5 @@ interface ApiService {
     @GET("api/")
     suspend fun getHumans(
         @Query("results") results: Int = 10
-    ): Response<UserResponse>
+    ): UserResponse
 }

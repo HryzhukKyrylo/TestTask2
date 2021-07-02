@@ -14,7 +14,8 @@ class MainRepository @Inject constructor(
     private val local: HumanDao
 ) {
     private var firstRequest = true
-    suspend fun loadHumans(): Resource<UserResponse> {
+
+    suspend fun loadHumans(loadNext: Boolean): Resource<UserResponse> {
         val result = remote.loadHumans()
         return if (result.status == Resource.Status.SUCCESS) {
             if (firstRequest) {
@@ -25,8 +26,15 @@ class MainRepository @Inject constructor(
             result.data?.results?.map {
                 listUser.add(it.toUser())
             }
-            local.insertAll(listUser)
-            Resource.success(result.data!!.apply { resultsUser = listUser })
+
+            if(loadNext){
+                local.insertAll(local.getAllHumans()+listUser)
+                Resource.success(result.data!!.apply { resultsUser = local.getAllHumans()+listUser })
+            }else{
+                local.insertAll(listUser)
+                Resource.success(result.data!!.apply { resultsUser = listUser })
+            }
+
         } else {
             loadHumansCached()
         }
