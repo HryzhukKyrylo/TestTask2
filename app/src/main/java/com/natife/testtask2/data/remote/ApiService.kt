@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("api/")
-    suspend fun getHumans(
+    suspend fun getUsers(
         @Query("results") results: Int = 10
     ): UserResponse
 }

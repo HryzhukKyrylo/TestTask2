@@ -1,22 +1,24 @@
 package com.natife.testtask2.ui.mainscreen.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.natife.testtask2.data.entities.User
 import com.natife.testtask2.data.entities.UserResponse
-import com.natife.testtask2.data.repository.MainRepository
+import com.natife.testtask2.data.repository.MainRepositoryDecorator
 import com.natife.testtask2.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: MainRepository
+    private val repository: MainRepositoryDecorator
 ) : ViewModel() {
-    private val _responseUsers = MutableLiveData<Resource<UserResponse>>()
-    val responseUsers: LiveData<Resource<UserResponse>> = _responseUsers
+    private val _responseUsers = MutableLiveData<Resource<List<User>>>()
+    val responseUsers: LiveData<Resource<List<User>>> = _responseUsers
 
     fun loadUsers() {
         viewModelScope.launch(Dispatchers.IO) {

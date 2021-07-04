@@ -49,7 +49,7 @@ class MainScreenFragment : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Resource.Status.SUCCESS -> {
-                        resource.data.let { list -> list?.let { user -> adapter?.submitList(user.resultsUser) } }
+                        resource.data.let { list -> list?.let { user -> adapter?.submitList(user) } }
                     }
                     Resource.Status.ERROR -> {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
