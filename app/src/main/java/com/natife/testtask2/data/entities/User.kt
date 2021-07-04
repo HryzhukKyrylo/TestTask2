@@ -28,49 +28,40 @@ class UserBuilder() {
     private var id: Int = 0
     private var picture = ""
 
-    fun withFirstName(value: String): UserBuilder {
+    fun withFirstName(value: String) = apply {
         this.firstName = value
-        return this
     }
 
-    fun withLastName(value: String): UserBuilder {
+    fun withLastName(value: String) = apply {
         this.lastName = value
-        return this
     }
 
-    fun withTittle(value: String) :UserBuilder{
+    fun withTittle(value: String) = apply {
         this.title = value
-        return this
     }
 
-    fun withAge(value: Int): UserBuilder {
+    fun withAge(value: Int) = apply {
         this.age = value
-        return this
     }
 
-    fun withPhone(value: String): UserBuilder {
+    fun withPhone(value: String) = apply {
         this.phone = value
-        return this
     }
 
-    fun withEmail(value: String): UserBuilder {
+    fun withEmail(value: String) = apply {
         this.email = value
-        return this
     }
 
-    fun withUuid(value: String): UserBuilder {
+    fun withUuid(value: String) = apply {
         this.uuid = value
-        return this
     }
 
-    fun withId(value: String): UserBuilder {
+    fun withId(value: String) = apply {
         this.firstName = value
-        return this
     }
 
-    fun withPicture(value: String): UserBuilder {
+    fun withPicture(value: String) = apply {
         this.picture = value
-        return this
     }
 
     fun build() = User(
@@ -85,4 +76,60 @@ class UserBuilder() {
     )
 
 
+//    fun withFirstName(value: String): UserBuilder {
+//        this.firstName = value
+//        return this
+//    }
+//
+//
+//    fun withLastName(value: String): UserBuilder {
+//        this.lastName = value
+//        return this
+//    }
+//
+//    fun withTittle(value: String) :UserBuilder{
+//        this.title = value
+//        return this
+//    }
+//
+//    fun withAge(value: Int): UserBuilder {
+//        this.age = value
+//        return this
+//    }
+//
+//    fun withPhone(value: String): UserBuilder {
+//        this.phone = value
+//        return this
+//    }
+//
+//    fun withEmail(value: String): UserBuilder {
+//        this.email = value
+//        return this
+//    }
+//
+//    fun withUuid(value: String): UserBuilder {
+//        this.uuid = value
+//        return this
+//    }
+//
+//    fun withId(value: String): UserBuilder {
+//        this.firstName = value
+//        return this
+//    }
+//
+//    fun withPicture(value: String): UserBuilder {
+//        this.picture = value
+//        return this
+//    }
+//
+//    fun build() = User(
+//        firstName = firstName,
+//        lastName = lastName,
+//        title = title,
+//        age = age,
+//        uuid = uuid,
+//        picture = picture,
+//        phone = phone,
+//        email = email
+//    )
 }
