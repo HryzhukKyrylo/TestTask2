@@ -1,6 +1,9 @@
 package com.natife.testtask2.utils
 
- suspend fun <T> getResponse(
+import com.natife.testtask2.data.entities.Human
+import com.natife.testtask2.data.entities.UserBuilder
+
+suspend fun <T> getResponse(
     request: suspend () -> T,
     defaultErrorMessage: String
 ): Resource<T> {
@@ -12,3 +15,14 @@ package com.natife.testtask2.utils
         Resource.error(data = null, message = defaultErrorMessage)
     }
 }
+
+fun Human.toUser() = UserBuilder()
+    .withFirstName(name.first)
+    .withLastName(name.last)
+    .withTittle(name.title)
+    .withAge(dob.age)
+    .withUuid(login.uuid)
+    .withPicture(picture.medium)
+    .withPhone(phone)
+    .withEmail(email)
+    .build()

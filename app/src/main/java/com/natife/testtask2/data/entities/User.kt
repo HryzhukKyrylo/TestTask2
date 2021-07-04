@@ -16,3 +16,73 @@ data class User(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "picture") val picture: String?
 )
+
+class UserBuilder() {
+    private var firstName = ""
+    private var lastName = ""
+    private var title = ""
+    private var age = 0
+    private var phone = ""
+    private var email = ""
+    private var uuid = ""
+    private var id: Int = 0
+    private var picture = ""
+
+    fun withFirstName(value: String): UserBuilder {
+        this.firstName = value
+        return this
+    }
+
+    fun withLastName(value: String): UserBuilder {
+        this.lastName = value
+        return this
+    }
+
+    fun withTittle(value: String) :UserBuilder{
+        this.title = value
+        return this
+    }
+
+    fun withAge(value: Int): UserBuilder {
+        this.age = value
+        return this
+    }
+
+    fun withPhone(value: String): UserBuilder {
+        this.phone = value
+        return this
+    }
+
+    fun withEmail(value: String): UserBuilder {
+        this.email = value
+        return this
+    }
+
+    fun withUuid(value: String): UserBuilder {
+        this.uuid = value
+        return this
+    }
+
+    fun withId(value: String): UserBuilder {
+        this.firstName = value
+        return this
+    }
+
+    fun withPicture(value: String): UserBuilder {
+        this.picture = value
+        return this
+    }
+
+    fun build() = User(
+        firstName = firstName,
+        lastName = lastName,
+        title = title,
+        age = age,
+        uuid = uuid,
+        picture = picture,
+        phone = phone,
+        email = email
+    )
+
+
+}

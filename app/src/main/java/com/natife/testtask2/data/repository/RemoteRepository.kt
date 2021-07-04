@@ -1,10 +1,10 @@
 package com.natife.testtask2.data.repository
 
 import com.natife.testtask2.data.entities.User
-import com.natife.testtask2.data.entities.toUser
 import com.natife.testtask2.data.remote.ApiService
 import com.natife.testtask2.utils.Resource
 import com.natife.testtask2.utils.getResponse
+import com.natife.testtask2.utils.toUser
 import javax.inject.Inject
 
 class RemoteRepository @Inject constructor(private val service: ApiService) : GlobalRepository {
