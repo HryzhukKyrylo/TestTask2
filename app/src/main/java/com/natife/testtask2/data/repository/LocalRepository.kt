@@ -7,12 +7,6 @@ import com.natife.testtask2.utils.getResponse
 import javax.inject.Inject
 
 class LocalRepository @Inject constructor(private val local: HumanDao) : GlobalRepository {
-    suspend fun deleteAllUsers() = local.deleteAllUsers()
-
-    suspend fun insertAllUsers(list: List<User>) = local.insertAllUsers(list)
-
-    fun getUserFromId(id: String) = local.getUser(id)
-
     override suspend fun loadUsers(): Resource<List<User>> {
         return getResponse(
             request = {
@@ -20,5 +14,13 @@ class LocalRepository @Inject constructor(private val local: HumanDao) : GlobalR
             },
             defaultErrorMessage = "Error load Humans"
         )
+    }
+
+    override suspend fun deleteAllUsers() = local.deleteAllUsers()
+
+    override suspend fun insertAllUsers(list: List<User>) = local.insertAllUsers(list)
+
+    override suspend fun findUserById(id: String): User {
+        return local.getUser(id)
     }
 }

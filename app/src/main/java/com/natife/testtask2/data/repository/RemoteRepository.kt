@@ -8,7 +8,6 @@ import com.natife.testtask2.utils.toUser
 import javax.inject.Inject
 
 class RemoteRepository @Inject constructor(private val service: ApiService) : GlobalRepository {
-
     override suspend fun loadUsers(): Resource<List<User>> {
         return getResponse(
             request = {
@@ -20,5 +19,17 @@ class RemoteRepository @Inject constructor(private val service: ApiService) : Gl
             },
             defaultErrorMessage = "Error load Humans"
         )
+    }
+
+    override suspend fun deleteAllUsers() {
+        throw IllegalArgumentException("ApiService not realisation deleteAllUsers")
+    }
+
+    override suspend fun insertAllUsers(list: List<User>) {
+        throw IllegalArgumentException("ApiService not realisation insertAllUsers")
+    }
+
+    override suspend fun findUserById(id: String): User {
+        throw IllegalArgumentException("ApiService not realisation findUserById")
     }
 }
