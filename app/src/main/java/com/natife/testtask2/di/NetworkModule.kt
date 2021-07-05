@@ -1,5 +1,6 @@
 package com.natife.testtask2.di
 
+import com.natife.testtask2.BuildConfig
 import com.natife.testtask2.data.remote.ApiService
 import dagger.Module
 import dagger.Provides
@@ -14,6 +15,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
+
     @Singleton
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
@@ -27,7 +29,7 @@ class NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("https://randomuser.me/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -43,4 +45,5 @@ class NetworkModule {
     fun provideRetrofitService(retrofit: Retrofit): ApiService = retrofit.create(
         ApiService::class.java
     )
+
 }

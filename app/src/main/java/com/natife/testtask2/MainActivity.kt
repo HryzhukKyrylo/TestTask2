@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     private var binding: ActivityMainBinding? = null
     private lateinit var navController: NavController
 

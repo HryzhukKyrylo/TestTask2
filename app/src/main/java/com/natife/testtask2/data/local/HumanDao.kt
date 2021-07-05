@@ -5,14 +5,15 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.natife.testtask2.data.entities.User
+import com.natife.testtask2.utils.Const
 
 @Dao
 interface HumanDao {
 
-    @Query("SELECT * FROM humans ")
+    @Query("SELECT * FROM ${Const.HUMANS} ")
     fun getAllUsers(): List<User>
 
-    @Query("SELECT * FROM humans WHERE uuid = :uuid")
+    @Query("SELECT * FROM ${Const.HUMANS} WHERE uuid = :uuid")
     fun getUser(uuid: String): User
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,7 +22,6 @@ interface HumanDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: User)
 
-    @Query("DELETE FROM humans")
+    @Query("DELETE FROM ${Const.HUMANS}")
     suspend fun deleteAllUsers()
-
 }

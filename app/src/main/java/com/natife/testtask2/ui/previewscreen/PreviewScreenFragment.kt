@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PreviewScreenFragment : Fragment() {
     private var binding: FragmentPreviewScreenBinding? = null
-    private val viewmodel: PreviewViewModel by viewModels()
+    private val viewModel: PreviewViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,14 +36,14 @@ class PreviewScreenFragment : Fragment() {
     private fun fetchUser() {
         val arg = arguments?.getString(Const.ARG_USER)
         if (!arg.isNullOrEmpty()) {
-            viewmodel.fetchUser(arg)
+            viewModel.fetchUser(arg)
         } else {
             findNavController().popBackStack()
         }
     }
 
     private fun initObserv() {
-        viewmodel.user.observe(viewLifecycleOwner) {
+        viewModel.user.observe(viewLifecycleOwner) {
             initView(it)
         }
     }

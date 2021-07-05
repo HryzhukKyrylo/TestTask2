@@ -1,32 +1,32 @@
 package com.natife.testtask2.data.entities
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.natife.testtask2.utils.Const
 
-@Entity(tableName = "humans")
+@Entity(tableName = Const.HUMANS)
 data class User(
-    @ColumnInfo(name = "first_name") val firstName: String?,
-    @ColumnInfo(name = "last_name") val lastName: String?,
-    @ColumnInfo(name = "title") val title: String?,
-    @ColumnInfo(name = "age") val age: Int?,
-    @ColumnInfo(name = "phone") val phone: String?,
-    @ColumnInfo(name = "email") val email: String?,
-    @ColumnInfo(name = "uuid") val uuid: String?,
+    val firstName: String?,
+    val lastName: String?,
+    val title: String?,
+    val age: Int?,
+    val phone: String?,
+    val email: String?,
+    val uuid: String?,
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = "picture") val picture: String?
+    val picture: String?
 )
 
-class UserBuilder() {
-    private var firstName = ""
-    private var lastName = ""
-    private var title = ""
-    private var age = 0
-    private var phone = ""
-    private var email = ""
-    private var uuid = ""
-    private var id: Int = 0
-    private var picture = ""
+class UserBuilder(
+    private var firstName: String = "",
+    private var lastName: String = "",
+    private var title: String = "",
+    private var age: Int = 0,
+    private var phone: String = "",
+    private var email: String = "",
+    private var uuid: String = "",
+    private var picture: String = ""
+) {
 
     fun withFirstName(value: String) = apply {
         this.firstName = value
@@ -56,10 +56,6 @@ class UserBuilder() {
         this.uuid = value
     }
 
-    fun withId(value: String) = apply {
-        this.firstName = value
-    }
-
     fun withPicture(value: String) = apply {
         this.picture = value
     }
@@ -74,62 +70,4 @@ class UserBuilder() {
         phone = phone,
         email = email
     )
-
-
-//    fun withFirstName(value: String): UserBuilder {
-//        this.firstName = value
-//        return this
-//    }
-//
-//
-//    fun withLastName(value: String): UserBuilder {
-//        this.lastName = value
-//        return this
-//    }
-//
-//    fun withTittle(value: String) :UserBuilder{
-//        this.title = value
-//        return this
-//    }
-//
-//    fun withAge(value: Int): UserBuilder {
-//        this.age = value
-//        return this
-//    }
-//
-//    fun withPhone(value: String): UserBuilder {
-//        this.phone = value
-//        return this
-//    }
-//
-//    fun withEmail(value: String): UserBuilder {
-//        this.email = value
-//        return this
-//    }
-//
-//    fun withUuid(value: String): UserBuilder {
-//        this.uuid = value
-//        return this
-//    }
-//
-//    fun withId(value: String): UserBuilder {
-//        this.firstName = value
-//        return this
-//    }
-//
-//    fun withPicture(value: String): UserBuilder {
-//        this.picture = value
-//        return this
-//    }
-//
-//    fun build() = User(
-//        firstName = firstName,
-//        lastName = lastName,
-//        title = title,
-//        age = age,
-//        uuid = uuid,
-//        picture = picture,
-//        phone = phone,
-//        email = email
-//    )
 }

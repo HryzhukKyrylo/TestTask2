@@ -8,6 +8,7 @@ class MainRepositoryDecorator @Inject constructor(
     private val remote: GlobalRepository,
     private val local: GlobalRepository
 ) : GlobalRepository {
+
     private var firstRequest = true
 
     override suspend fun loadUsers(): Resource<List<User>> {

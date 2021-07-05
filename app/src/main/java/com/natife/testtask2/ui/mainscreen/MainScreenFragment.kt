@@ -55,7 +55,7 @@ class MainScreenFragment : Fragment() {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
                     }
                     Resource.Status.LOADING -> {
-                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), Const.LOAD, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

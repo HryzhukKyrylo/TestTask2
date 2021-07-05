@@ -6,8 +6,14 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
-    @GET("api/")
+
+    @GET(POINT)
     suspend fun getUsers(
-        @Query("results") results: Int = 10
+        @Query("results") results: Int = SIZE_REQUEST
     ): UserResponse
+
+    companion object {
+        const val POINT = "api/"
+        const val SIZE_REQUEST = 10
+    }
 }

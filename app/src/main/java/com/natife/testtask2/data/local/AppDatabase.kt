@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.natife.testtask2.data.entities.User
+import com.natife.testtask2.utils.Const
 
 @Database(entities = [User::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
@@ -22,7 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
 
         private fun buildDatabase(appContext: Context) =
-            Room.databaseBuilder(appContext, AppDatabase::class.java, "humans")
+            Room.databaseBuilder(appContext, AppDatabase::class.java, Const.HUMANS)
                 .build()
     }
 }
