@@ -1,20 +1,21 @@
 package com.natife.testtask2.data.entities
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.natife.testtask2.utils.Const
 
 @Entity(tableName = Const.HUMANS)
 data class User(
-    val firstName: String?,
-    val lastName: String?,
-    val title: String?,
-    val age: Int?,
-    val phone: String?,
-    val email: String?,
-    val uuid: String?,
+    @ColumnInfo(name = "first_name") val firstName: String?,
+    @ColumnInfo(name = "lastName") val lastName: String?,
+    @ColumnInfo(name = "title") val title: String?,
+    @ColumnInfo(name = "age") val age: Int?,
+    @ColumnInfo(name = "phone") val phone: String?,
+    @ColumnInfo(name = "email") val email: String?,
+    @ColumnInfo(name = "uuid") val uuid: String?,
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val picture: String?
+    @ColumnInfo(name = "picture") val picture: String?
 )
 
 class UserBuilder(
