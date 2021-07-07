@@ -1,25 +1,29 @@
 package com.natife.testtask2.ui.mainscreen.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
+import com.natife.testtask2.BaseApplication
 import com.natife.testtask2.data.entities.User
 import com.natife.testtask2.data.repository.GlobalRepository
 import com.natife.testtask2.utils.Const
 import com.natife.testtask2.utils.Resource
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
+
 class MainViewModel @Inject constructor(
-    private val repository: GlobalRepository
-) : ViewModel() {
+    application: Application
+) : AndroidViewModel(application) {
+    @Inject
+    lateinit var repository: GlobalRepository
 
     private val _responseUsers = MutableLiveData<Resource<List<User>>>()
     val responseUsers: LiveData<Resource<List<User>>> = _responseUsers
+
+    init {
+        (application as BaseApplication).getAppComponent().inject(this)
+    }
 
     fun loadUsers() {
         viewModelScope.launch(Dispatchers.IO) {

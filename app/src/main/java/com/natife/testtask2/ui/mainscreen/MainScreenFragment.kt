@@ -1,5 +1,6 @@
 package com.natife.testtask2.ui.mainscreen
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,23 +8,30 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.natife.testtask2.BaseApplication
 import com.natife.testtask2.R
 import com.natife.testtask2.databinding.FragmentMainSreenBinding
 import com.natife.testtask2.ui.mainscreen.adapter.MainRecyclerView
 import com.natife.testtask2.ui.mainscreen.viewmodel.MainViewModel
 import com.natife.testtask2.utils.Const
 import com.natife.testtask2.utils.Resource
-import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-@AndroidEntryPoint
+
 class MainScreenFragment : Fragment() {
 
     private var binding: FragmentMainSreenBinding? = null
-    private val viewModel: MainViewModel by viewModels()
+    lateinit var viewModel: MainViewModel
     private var adapter: MainRecyclerView? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+//        (activity?.applicationContext as BaseApplication).getAppComponent().inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +40,7 @@ class MainScreenFragment : Fragment() {
         binding = FragmentMainSreenBinding.inflate(inflater, container, false)
         return binding?.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

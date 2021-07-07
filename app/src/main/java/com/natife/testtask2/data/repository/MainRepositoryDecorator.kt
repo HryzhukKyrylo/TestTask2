@@ -3,7 +3,9 @@ package com.natife.testtask2.data.repository
 import com.natife.testtask2.data.entities.User
 import com.natife.testtask2.utils.Resource
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class MainRepositoryDecorator @Inject constructor(
     private val remote: GlobalRepository,
     private val local: GlobalRepository

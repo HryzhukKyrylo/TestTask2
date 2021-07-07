@@ -6,18 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.natife.testtask2.data.entities.User
 import com.natife.testtask2.databinding.FragmentPreviewScreenBinding
 import com.natife.testtask2.ui.previewscreen.viewmodel.PreviewViewModel
 import com.natife.testtask2.utils.Const
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class PreviewScreenFragment : Fragment() {
     private var binding: FragmentPreviewScreenBinding? = null
-    private val viewModel: PreviewViewModel by viewModels()
+    private lateinit var viewModel: PreviewViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +28,13 @@ class PreviewScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViewModel()
         fetchUser()
         initObserv()
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(this).get(PreviewViewModel::class.java)
     }
 
     private fun fetchUser() {
@@ -43,6 +47,7 @@ class PreviewScreenFragment : Fragment() {
     }
 
     private fun initObserv() {
+
         viewModel.user.observe(viewLifecycleOwner) {
             initView(it)
         }
