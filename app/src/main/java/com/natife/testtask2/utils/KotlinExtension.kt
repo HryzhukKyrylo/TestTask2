@@ -12,7 +12,7 @@ suspend fun <T> getResponse(
         return Resource.success(result)
     } catch (e: Throwable) {
         e.printStackTrace()
-        Resource.error(data = null, message = defaultErrorMessage)
+        Resource.error( message = defaultErrorMessage)
     }
 }
 
