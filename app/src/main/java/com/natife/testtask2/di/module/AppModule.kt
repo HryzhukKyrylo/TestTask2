@@ -20,21 +20,24 @@ import javax.inject.Singleton
 
 
 @Module
-class AppModule(private val application: Application) {
+class AppModule {
 
     @Provides
+    @Singleton
     @Named(LOCAL)
     fun bindLocalRetrofit(local: LocalRepository): GlobalRepository {
         return local
     }
 
     @Provides
+    @Singleton
     @Named(REMOTE)
     fun bindRemoteRetrofit(remote: RemoteRepository): GlobalRepository {
         return remote
     }
 
     @Provides
+    @Singleton
     fun provideMainRepositoryDecorator(
         @Named(LOCAL) local: GlobalRepository,
         @Named(REMOTE) remote: GlobalRepository
@@ -74,9 +77,11 @@ class AppModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun provideContext(): Context {
+    fun provideContext(application: Application): Context {
         return application.applicationContext
     }
+
+
 
     @Provides
     @Singleton

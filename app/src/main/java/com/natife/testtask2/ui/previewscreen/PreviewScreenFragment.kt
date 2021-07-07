@@ -13,10 +13,11 @@ import com.natife.testtask2.data.entities.User
 import com.natife.testtask2.databinding.FragmentPreviewScreenBinding
 import com.natife.testtask2.ui.previewscreen.viewmodel.PreviewViewModel
 import com.natife.testtask2.utils.Const
+import javax.inject.Inject
 
 class PreviewScreenFragment : Fragment() {
     private var binding: FragmentPreviewScreenBinding? = null
-    private lateinit var viewModel: PreviewViewModel
+    @Inject lateinit var viewModel: PreviewViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +35,7 @@ class PreviewScreenFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(PreviewViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(PreviewViewModel::class.java)
     }
 
     private fun fetchUser() {

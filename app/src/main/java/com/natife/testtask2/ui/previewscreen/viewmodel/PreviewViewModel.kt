@@ -9,14 +9,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class PreviewViewModel (
-    application: Application
-) : AndroidViewModel(application) {
-    @Inject
-    lateinit var repository: GlobalRepository
+class PreviewViewModel @Inject constructor(
+//    application: Application
+    var repository: GlobalRepository
+) : ViewModel() {
+//    @Inject
+//    lateinit var repository: GlobalRepository
 
     init {
-        (application as BaseApplication).getAppComponent().inject(this)
+//        (application as BaseApplication).getAppComponent().inject(this)
     }
 
     private val _user = MutableLiveData<User>()

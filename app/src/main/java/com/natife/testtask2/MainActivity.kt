@@ -6,18 +6,20 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.natife.testtask2.databinding.ActivityMainBinding
+import dagger.android.support.DaggerAppCompatActivity
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
-    private var binding: ActivityMainBinding? = null
+//    private var binding: ActivityMainBinding? = null
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
+//        binding = ActivityMainBinding.inflate(layoutInflater)
+//        setContentView(binding?.root)
+        setContentView(R.layout.activity_main)
         setupUpButton()
     }
 
@@ -34,6 +36,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        binding = null
+//        binding = null
     }
 }

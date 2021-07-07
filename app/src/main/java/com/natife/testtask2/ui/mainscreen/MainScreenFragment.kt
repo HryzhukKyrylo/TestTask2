@@ -1,42 +1,38 @@
 package com.natife.testtask2.ui.mainscreen
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.natife.testtask2.BaseApplication
 import com.natife.testtask2.R
 import com.natife.testtask2.databinding.FragmentMainSreenBinding
 import com.natife.testtask2.ui.mainscreen.adapter.MainRecyclerView
 import com.natife.testtask2.ui.mainscreen.viewmodel.MainViewModel
 import com.natife.testtask2.utils.Const
 import com.natife.testtask2.utils.Resource
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 
-class MainScreenFragment : Fragment() {
+class MainScreenFragment : DaggerFragment() {
 
     private var binding: FragmentMainSreenBinding? = null
-    lateinit var viewModel: MainViewModel
     private var adapter: MainRecyclerView? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-//        (activity?.applicationContext as BaseApplication).getAppComponent().inject(this)
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    val viewModel by lazy {
+        ViewModelProvider(this,viewModelFactory).get(MainViewModel::class.java)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        androidInjector().inject(this)
         binding = FragmentMainSreenBinding.inflate(inflater, container, false)
         return binding?.root
     }
