@@ -5,8 +5,6 @@ import com.natife.testtask2.BaseApplication
 import com.natife.testtask2.di.module.ActivityBuildersModule
 import com.natife.testtask2.di.module.AppModule
 import com.natife.testtask2.di.module.ViewModelFactoryModule
-import com.natife.testtask2.ui.mainscreen.viewmodel.MainViewModel
-import com.natife.testtask2.ui.previewscreen.viewmodel.PreviewViewModel
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -19,7 +17,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         ActivityBuildersModule::class,
         AppModule::class,
-        ViewModelFactoryModule::class
+        ViewModelFactoryModule::class,
     ]
 )
 interface AppComponent : AndroidInjector<BaseApplication> {
