@@ -70,11 +70,11 @@ val repositoryModule = module {
 
     fun provideRemoteRepository(api: ApiService) = RemoteRepository(api)
 
-    fun bindLocalRetrofit(local: LocalRepository): GlobalRepository {
+    fun provideGlobalLocalRepository(local: LocalRepository): GlobalRepository {
         return local
     }
 
-    fun bindRemoteRetrofit(remote: RemoteRepository): GlobalRepository {
+    fun provideGlobalRemoteRepository(remote: RemoteRepository): GlobalRepository {
         return remote
     }
 
@@ -89,11 +89,11 @@ val repositoryModule = module {
 
     single { provideRemoteRepository(get()) }
 
-    single<GlobalRepository>(named("local")) {
-        bindLocalRetrofit(get())
+    single(named("local")) {
+        provideGlobalLocalRepository(get())
     }
-    single<GlobalRepository>(named("remote")) {
-        bindRemoteRetrofit(get())
+    single(named("remote")) {
+        provideGlobalRemoteRepository(get())
     }
     single<GlobalRepository> {
         provideMainRepositoryDecorator(
