@@ -11,15 +11,14 @@ import dagger.android.support.DaggerAppCompatActivity
 
 class MainActivity : DaggerAppCompatActivity() {
 
-//    private var binding: ActivityMainBinding? = null
+    private var binding: ActivityMainBinding? = null
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-//        binding = ActivityMainBinding.inflate(layoutInflater)
-//        setContentView(binding?.root)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
         setupUpButton()
     }
 
@@ -36,6 +35,6 @@ class MainActivity : DaggerAppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-//        binding = null
+        binding = null
     }
 }

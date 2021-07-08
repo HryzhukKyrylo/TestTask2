@@ -9,15 +9,13 @@ import dagger.BindsInstance
 import dagger.Module
 import dagger.multibindings.IntoMap
 
-/**
- *@author admin
- */
 @Module
 abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     internal abstract fun bindMainViewModel(viewModel: MainViewModel): ViewModel
+
     @Binds
     @IntoMap
     @ViewModelKey(PreviewViewModel::class)

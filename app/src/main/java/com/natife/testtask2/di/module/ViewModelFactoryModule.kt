@@ -5,9 +5,6 @@ import com.natife.testtask2.ui.mainscreen.viewmodel.MainViewModelFactory
 import dagger.Binds
 import dagger.Module
 
-/**
- *@author admin
- */
 @Module
 abstract class ViewModelFactoryModule {
     @Binds

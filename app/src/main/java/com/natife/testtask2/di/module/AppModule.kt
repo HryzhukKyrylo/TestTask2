@@ -18,7 +18,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
-
 @Module
 class AppModule {
 
@@ -80,7 +79,6 @@ class AppModule {
     fun provideContext(application: Application): Context {
         return application.applicationContext
     }
-
 
 
     @Provides

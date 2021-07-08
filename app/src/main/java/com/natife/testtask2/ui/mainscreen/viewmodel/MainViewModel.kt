@@ -13,15 +13,9 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     var repository: GlobalRepository
 ) : ViewModel() {
-//    @Inject
-//    lateinit var repository: GlobalRepository
 
     private val _responseUsers = MutableLiveData<Resource<List<User>>>()
     val responseUsers: LiveData<Resource<List<User>>> = _responseUsers
-
-//    init {
-//        (application as BaseApplication).getAppComponent().inject(this)
-//    }
 
     fun loadUsers() {
         viewModelScope.launch(Dispatchers.IO) {

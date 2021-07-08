@@ -23,9 +23,10 @@ class MainScreenFragment : DaggerFragment() {
 
     private var binding: FragmentMainSreenBinding? = null
     private var adapter: MainRecyclerView? = null
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     val viewModel by lazy {
-        ViewModelProvider(this,viewModelFactory).get(MainViewModel::class.java)
+        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
     }
 
     override fun onCreateView(
