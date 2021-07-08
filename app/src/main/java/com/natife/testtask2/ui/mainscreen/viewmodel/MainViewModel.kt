@@ -8,13 +8,13 @@ import com.natife.testtask2.data.entities.User
 import com.natife.testtask2.data.repository.GlobalRepository
 import com.natife.testtask2.utils.Const
 import com.natife.testtask2.utils.Resource
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class MainViewModel @Inject constructor(
+class MainViewModel
+//@Inject constructor
+    (
     private val repository: GlobalRepository
 ) : ViewModel() {
 

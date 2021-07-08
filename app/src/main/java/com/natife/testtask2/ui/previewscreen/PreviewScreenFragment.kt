@@ -12,9 +12,8 @@ import com.natife.testtask2.data.entities.User
 import com.natife.testtask2.databinding.FragmentPreviewScreenBinding
 import com.natife.testtask2.ui.previewscreen.viewmodel.PreviewViewModel
 import com.natife.testtask2.utils.Const
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class PreviewScreenFragment : Fragment() {
     private var binding: FragmentPreviewScreenBinding? = null
     private val viewModel: PreviewViewModel by viewModels()

@@ -16,9 +16,8 @@ import com.natife.testtask2.ui.mainscreen.adapter.MainRecyclerView
 import com.natife.testtask2.ui.mainscreen.viewmodel.MainViewModel
 import com.natife.testtask2.utils.Const
 import com.natife.testtask2.utils.Resource
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class MainScreenFragment : Fragment() {
 
     private var binding: FragmentMainSreenBinding? = null
