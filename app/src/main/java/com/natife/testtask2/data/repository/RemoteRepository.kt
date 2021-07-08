@@ -6,9 +6,8 @@ import com.natife.testtask2.utils.Const
 import com.natife.testtask2.utils.Resource
 import com.natife.testtask2.utils.getResponse
 import com.natife.testtask2.utils.toUser
-import javax.inject.Inject
 
-class RemoteRepository @Inject constructor(private val service: ApiService) : GlobalRepository {
+class RemoteRepository (private val service: ApiService) : GlobalRepository {
 
     override suspend fun loadUsers(): Resource<List<User>> {
         return getResponse(

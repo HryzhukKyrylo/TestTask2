@@ -66,18 +66,7 @@ val localModule = module {
 }
 
 val repositoryModule = module {
-    factory {
 
-    }
-    single<GlobalRepository>(named("local")) {
-
-    }
-    single<GlobalRepository>(named("remote")) {
-
-    }
-    single<GlobalRepository> {
-        MainRepositoryDecorator(get(named("remote"), get(named("local"))))
-    }
 
     fun bindLocalRetrofit(local: LocalRepository): GlobalRepository {
         return local
@@ -92,6 +81,18 @@ val repositoryModule = module {
         remote: GlobalRepository
     ): GlobalRepository {
         return MainRepositoryDecorator(remote, local)
+    }
+    single<GlobalRepository>(named("local")) {
+        bindLocalRetrofit(get())
+    }
+    single<GlobalRepository>(named("remote")) {
+        bindRemoteRetrofit(get())
+    }
+    single<GlobalRepository> {
+        provideMainRepositoryDecorator(
+            get(named("local")),
+            get(named("remote"))
+        )
     }
 }
 

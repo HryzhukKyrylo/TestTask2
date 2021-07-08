@@ -16,12 +16,12 @@ import com.natife.testtask2.ui.mainscreen.adapter.MainRecyclerView
 import com.natife.testtask2.ui.mainscreen.viewmodel.MainViewModel
 import com.natife.testtask2.utils.Const
 import com.natife.testtask2.utils.Resource
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-//@AndroidEntryPoint
 class MainScreenFragment : Fragment() {
 
     private var binding: FragmentMainSreenBinding? = null
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel by viewModel<MainViewModel>()
     private var adapter: MainRecyclerView? = null
 
     override fun onCreateView(

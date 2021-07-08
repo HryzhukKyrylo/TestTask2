@@ -10,10 +10,8 @@ import com.natife.testtask2.utils.Const
 import com.natife.testtask2.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class MainViewModel
-//@Inject constructor
     (
     private val repository: GlobalRepository
 ) : ViewModel() {
