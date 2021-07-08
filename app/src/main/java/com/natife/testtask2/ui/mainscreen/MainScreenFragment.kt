@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.natife.testtask2.R
@@ -21,7 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainScreenFragment : Fragment() {
 
     private var binding: FragmentMainSreenBinding? = null
-    private val viewModel by viewModel<MainViewModel>()
+    private val mainViewModel by viewModel<MainViewModel>()
     private var adapter: MainRecyclerView? = null
 
     override fun onCreateView(
@@ -40,11 +39,11 @@ class MainScreenFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.loadUsers()
+        mainViewModel.loadUsers()
     }
 
     private fun initViewModel() {
-        viewModel.responseUsers.observe(viewLifecycleOwner) {
+        mainViewModel.responseUsers.observe(viewLifecycleOwner) {
             it?.let { resource ->
                 when (resource.status) {
                     Resource.Status.SUCCESS -> {
@@ -62,7 +61,7 @@ class MainScreenFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        adapter = MainRecyclerView(::onItemClicked) { viewModel.loadUsers() }
+        adapter = MainRecyclerView(::onItemClicked) { mainViewModel.loadUsers() }
         binding?.mainRecyclerView?.layoutManager = LinearLayoutManager(requireContext())
         binding?.mainRecyclerView?.adapter = adapter
     }

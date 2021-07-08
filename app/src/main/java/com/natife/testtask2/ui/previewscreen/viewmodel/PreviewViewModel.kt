@@ -9,9 +9,7 @@ import com.natife.testtask2.data.repository.GlobalRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PreviewViewModel
-//@Inject constructor
-    (
+class PreviewViewModel(
     private val repository: GlobalRepository
 ) : ViewModel() {
 

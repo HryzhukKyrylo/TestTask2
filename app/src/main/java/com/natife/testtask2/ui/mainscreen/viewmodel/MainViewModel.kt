@@ -11,8 +11,7 @@ import com.natife.testtask2.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel
-    (
+class MainViewModel(
     private val repository: GlobalRepository
 ) : ViewModel() {
 

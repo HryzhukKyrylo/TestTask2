@@ -5,18 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.natife.testtask2.data.entities.User
 import com.natife.testtask2.databinding.FragmentPreviewScreenBinding
 import com.natife.testtask2.ui.previewscreen.viewmodel.PreviewViewModel
 import com.natife.testtask2.utils.Const
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-//@AndroidEntryPoint
 class PreviewScreenFragment : Fragment() {
     private var binding: FragmentPreviewScreenBinding? = null
-    private val viewModel: PreviewViewModel by viewModels()
+    private val previewViewModel by viewModel<PreviewViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,14 +34,14 @@ class PreviewScreenFragment : Fragment() {
     private fun fetchUser() {
         val arg = arguments?.getString(Const.ARG_USER)
         if (!arg.isNullOrEmpty()) {
-            viewModel.fetchUser(arg)
+            previewViewModel.fetchUser(arg)
         } else {
             findNavController().popBackStack()
         }
     }
 
     private fun initObserv() {
-        viewModel.user.observe(viewLifecycleOwner) {
+        previewViewModel.user.observe(viewLifecycleOwner) {
             initView(it)
         }
     }
