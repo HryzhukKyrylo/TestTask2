@@ -107,8 +107,8 @@ val viewModelModule = module {
     viewModel {
         MainViewModel(repository = get())
     }
-    viewModel {
-        PreviewViewModel(repository = get())
+    viewModel { parameters ->
+        PreviewViewModel(id = parameters.get(),repository = get())
     }
 
 }

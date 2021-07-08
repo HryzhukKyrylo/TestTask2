@@ -12,10 +12,13 @@ import com.natife.testtask2.databinding.FragmentPreviewScreenBinding
 import com.natife.testtask2.ui.previewscreen.viewmodel.PreviewViewModel
 import com.natife.testtask2.utils.Const
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class PreviewScreenFragment : Fragment() {
     private var binding: FragmentPreviewScreenBinding? = null
-    private val previewViewModel by viewModel<PreviewViewModel>()
+    private val previewViewModel: PreviewViewModel by viewModel {
+        parametersOf(arguments?.getString(Const.ARG_USER) ?: "")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +36,7 @@ class PreviewScreenFragment : Fragment() {
 
     private fun fetchUser() {
         val arg = arguments?.getString(Const.ARG_USER)
-        if (!arg.isNullOrEmpty()) {
-            previewViewModel.fetchUser(arg)
-        } else {
+        if (arg.isNullOrEmpty()) {
             findNavController().popBackStack()
         }
     }

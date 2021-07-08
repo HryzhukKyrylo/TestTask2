@@ -10,13 +10,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PreviewViewModel(
+    private val id: String,
     private val repository: GlobalRepository
 ) : ViewModel() {
 
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> = _user
+    init {
+        fetchUser()
+    }
 
-    fun fetchUser(id: String) {
+    fun fetchUser() {
         viewModelScope.launch(Dispatchers.IO) {
             _user.postValue(repository.findUserById(id))
         }
