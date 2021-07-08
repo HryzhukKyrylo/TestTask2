@@ -11,13 +11,18 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.natife.testtask2.data.entities.User
 import com.natife.testtask2.databinding.FragmentPreviewScreenBinding
+import com.natife.testtask2.ui.mainscreen.viewmodel.MainViewModel
 import com.natife.testtask2.ui.previewscreen.viewmodel.PreviewViewModel
 import com.natife.testtask2.utils.Const
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class PreviewScreenFragment : Fragment() {
+class PreviewScreenFragment : DaggerFragment() {
     private var binding: FragmentPreviewScreenBinding? = null
-    @Inject lateinit var viewModel: PreviewViewModel
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    val viewModel by lazy {
+        ViewModelProvider(this,viewModelFactory).get(PreviewViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,13 +34,8 @@ class PreviewScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViewModel()
         fetchUser()
         initObserv()
-    }
-
-    private fun initViewModel() {
-//        viewModel = ViewModelProvider(this).get(PreviewViewModel::class.java)
     }
 
     private fun fetchUser() {
