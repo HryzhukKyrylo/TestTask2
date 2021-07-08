@@ -47,9 +47,9 @@ val networkModule = module {
         ApiService::class.java
     )
 
-    single { provideLoggingInterceptor() }
-    single { provideRetrofit(get()) }
-    single { provideOkHttpClient(get()) }
+    factory { provideLoggingInterceptor() }
+    factory { provideRetrofit(get()) }
+    factory { provideOkHttpClient(get()) }
     single { provideRetrofitService(get()) }
 }
 
@@ -60,8 +60,8 @@ val localModule = module {
 
     fun provideUserDao(db: AppDatabase) = db.userDao()
 
-    single { provideDatabase(androidApplication()) }
-    single { provideUserDao(get()) }
+    factory { provideDatabase(androidApplication()) }
+    factory { provideUserDao(get()) }
 }
 
 val repositoryModule = module {
@@ -85,14 +85,14 @@ val repositoryModule = module {
         return MainRepositoryDecorator(remote, local)
     }
 
-    single { provideLocalRepository(get()) }
+    factory { provideLocalRepository(get()) }
 
-    single { provideRemoteRepository(get()) }
+    factory { provideRemoteRepository(get()) }
 
-    single(named("local")) {
+    factory (named("local")) {
         provideGlobalLocalRepository(get())
     }
-    single(named("remote")) {
+    factory (named("remote")) {
         provideGlobalRemoteRepository(get())
     }
     single<GlobalRepository> {
