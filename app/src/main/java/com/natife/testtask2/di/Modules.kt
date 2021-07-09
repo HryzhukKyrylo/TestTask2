@@ -1,7 +1,6 @@
 package com.natife.testtask2.di
 
 import android.app.Application
-import android.content.Context
 import com.natife.testtask2.BuildConfig
 import com.natife.testtask2.data.local.AppDatabase
 import com.natife.testtask2.data.local.HumanDao
@@ -16,6 +15,8 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.Qualifier
+import org.koin.core.qualifier.QualifierValue
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -89,16 +90,16 @@ val repositoryModule = module {
 
     factory { provideRemoteRepository(get()) }
 
-    factory (named("local")) {
+    factory (Local) {
         provideGlobalLocalRepository(get())
     }
-    factory (named("remote")) {
+    factory (Remote) {
         provideGlobalRemoteRepository(get())
     }
-    single<GlobalRepository> {
+    single {
         provideMainRepositoryDecorator(
-            get(named("local")),
-            get(named("remote"))
+            get(Local),
+            get(Remote)
         )
     }
 }
@@ -111,4 +112,15 @@ val viewModelModule = module {
         PreviewViewModel(id = parameters.get(),repository = get())
     }
 
+}
+
+object Local : Qualifier // define your own qualifier
+{
+    override val value: QualifierValue
+        get() = "Local"
+}
+object Remote : Qualifier // define your own qualifier
+{
+    override val value: QualifierValue
+        get() = "Re,ote"
 }
